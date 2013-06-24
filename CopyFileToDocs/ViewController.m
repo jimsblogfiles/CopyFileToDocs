@@ -21,21 +21,20 @@
 	NSFileManager *filemgr = [NSFileManager defaultManager];
 	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDir = [documentPaths objectAtIndex:0];
-	NSLog(@"documentsDir:%@",documentsDir);
 
 	NSError *error = nil;
 	
 	if ([filemgr fileExistsAtPath: [documentsDir stringByAppendingPathComponent:fileName] ] == YES) {
 
-		NSLog (@"File exists, done");
+		NSLog (@"%@ exists, done",fileName);
 		
 	} else {
 		
-		NSLog (@"File not found, copying next.");
+		NSLog (@"%@ not found, copying to:%@.",fileName, documentsDir);
 		
 		if([filemgr copyItemAtPath:[[NSBundle mainBundle] pathForResource:fileName ofType:@""] toPath:[documentsDir stringByAppendingPathComponent:fileName] error:&error]){
 			
-			NSLog(@"File successfully copied to:%@",documentsDir);
+			NSLog(@"%@ successfully copied to:%@",fileName, documentsDir);
 			
 		} else {
 
